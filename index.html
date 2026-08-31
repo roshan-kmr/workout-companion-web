@@ -17,11 +17,12 @@
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Athlete</p>
-          <h1 id="headerUserName">Workout Companion</h1>
+          <p class="eyebrow" id="userPossessiveLabel">USER's</p>
+          <h1>Workout Companion</h1>
         </div>
         <div class="topbar-actions">
           <button class="tab-toggle active" data-tab="workout">Active workout</button>
+          <button class="tab-toggle" data-tab="user">User</button>
           <button class="tab-toggle" data-tab="data">Data & backup</button>
         </div>
       </header>
@@ -29,11 +30,6 @@
       <main>
         <section id="workoutView" class="tab-view active">
           <div class="panel main-panel">
-            <div class="user-row">
-              <label class="user-label" for="userNameInput">User name</label>
-              <input id="userNameInput" class="user-name-input" type="text" placeholder="Enter your name" maxlength="40" />
-            </div>
-
             <div class="day-row">
               <div>
                 <p class="section-label">Workout day</p>
@@ -45,6 +41,27 @@
             <div id="statsGrid" class="stats-grid"></div>
 
             <div id="sessionCard" class="session-card"></div>
+          </div>
+        </section>
+
+        <section id="userView" class="tab-view hidden">
+          <div class="panel side-panel">
+            <div class="panel-head">
+              <h2>User details</h2>
+            </div>
+
+            <div class="user-row">
+              <label class="user-label" for="userNameInput">User name</label>
+              <input id="userNameInput" class="user-name-input" type="text" placeholder="USER" maxlength="40" />
+            </div>
+
+            <div class="mini-card">
+              <h3>Profile</h3>
+              <div class="status-box">
+                <div><strong>Default:</strong> USER</div>
+                <div><strong>Display:</strong> <span id="userProfileDisplay">USER's</span></div>
+              </div>
+            </div>
           </div>
         </section>
 

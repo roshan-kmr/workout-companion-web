@@ -68,6 +68,8 @@ const state = {
 
 const els = {
   userNameInput: document.getElementById("userNameInput"),
+  userView: document.getElementById("userView"),
+  userProfileDisplay: document.getElementById("userProfileDisplay"),
   daySelector: document.getElementById("daySelector"),
   startBtn: document.getElementById("startBtn"),
   statsGrid: document.getElementById("statsGrid"),
@@ -92,37 +94,48 @@ function getCurrentDay() {
     : "Monday";
 }
 
+function getUserNameValue() {
+  const stored = localStorage.getItem(USER_NAME_KEY);
+  return (stored && stored.trim()) || "USER";
+}
+
+function getPossessiveUserName() {
+  const name = (state.data.userName || getUserNameValue() || "USER").trim();
+  return `${name || "USER"}'s`;
+}
+
 function loadData() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) {
-    return { userName: getStoredUserName(), logs: [] };
+    return { userName: getUserNameValue(), logs: [] };
   }
 
   try {
     const parsed = JSON.parse(saved);
     return {
-      userName: parsed.userName || getStoredUserName(),
+      userName: (parsed.userName && parsed.userName.trim()) || getUserNameValue(),
       logs: Array.isArray(parsed.logs) ? parsed.logs : [],
     };
   } catch {
-    return { userName: getStoredUserName(), logs: [] };
+    return { userName: getUserNameValue(), logs: [] };
   }
 }
 
 function getStoredUserName() {
-  return localStorage.getItem(USER_NAME_KEY) || "";
+  return localStorage.getItem(USER_NAME_KEY) || "USER";
 }
 
 function saveUserName() {
-  const name = (els.userNameInput?.value || "").trim();
+  const name = ((els.userNameInput?.value || "").trim() || "USER");
   state.data.userName = name;
   localStorage.setItem(USER_NAME_KEY, name);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+  render();
 }
 
 function saveData() {
-  state.data.userName = (els.userNameInput?.value || "").trim();
-  localStorage.setItem(USER_NAME_KEY, state.data.userName || "");
+  state.data.userName = ((els.userNameInput?.value || "").trim() || "USER");
+  localStorage.setItem(USER_NAME_KEY, state.data.userName || "USER");
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
   localStorage.setItem(LAST_SAVED_KEY, new Date().toISOString());
 }
@@ -780,19 +793,18 @@ function renderRecentLog() {
 }
 
 function render() {
-  const userName = state.data.userName || getStoredUserName() || "Athlete";
+  const userName = (state.data.userName || getStoredUserName() || "USER").trim() || "USER";
   if (els.userNameInput) {
     els.userNameInput.value = userName;
   }
 
-  const headerName = document.getElementById("headerUserName");
-  if (headerName) {
-    headerName.textContent = userName || "Workout Companion";
+  const eyebrow = document.getElementById("userPossessiveLabel");
+  if (eyebrow) {
+    eyebrow.textContent = `${userName}'s`;
   }
 
-  const eyebrow = document.querySelector(".eyebrow");
-  if (eyebrow) {
-    eyebrow.textContent = userName ? "Athlete" : "Gym planner";
+  if (els.userProfileDisplay) {
+    els.userProfileDisplay.textContent = `${userName}'s`;
   }
 
   renderDaySelector();
@@ -808,6 +820,7 @@ function render() {
 function renderTabs() {
   const activeTab = state.activeTab || "workout";
   els.workoutView.classList.toggle("hidden", activeTab !== "workout");
+  els.userView.classList.toggle("hidden", activeTab !== "user");
   els.dataView.classList.toggle("hidden", activeTab !== "data");
 
   els.tabButtons.forEach((button) => {
@@ -818,6 +831,13 @@ function renderTabs() {
 
 els.userNameInput?.addEventListener("input", () => {
   saveUserName();
+});
+
+els.tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeTab = button.dataset.tab;
+    renderTabs();
+  });
 });
 
 els.startBtn.addEventListener("click", () => {
@@ -852,13 +872,6 @@ els.saveNowBtn.addEventListener("click", () => {
   saveActiveFile();
   render();
   alert("Active file saved.");
-});
-
-els.tabButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    state.activeTab = button.dataset.tab;
-    renderTabs();
-  });
 });
 
 window.addEventListener("beforeunload", (event) => {
