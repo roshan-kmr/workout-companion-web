@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Companion</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Gym planner</p>
+          <h1>Workout Companion</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="resetBtn" class="secondary-btn">Reset</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel main-panel">
+          <div class="day-row">
+            <div>
+              <p class="section-label">Workout day</p>
+              <div id="daySelector" class="day-selector"></div>
+            </div>
+            <button id="startBtn" class="primary-btn">Start workout</button>
+          </div>
+
+          <div id="statsGrid" class="stats-grid"></div>
+
+          <div id="sessionCard" class="session-card"></div>
+        </section>
+
+        <aside class="panel side-panel">
+          <div class="panel-head">
+            <h2>Progress</h2>
+          </div>
+
+          <div class="mini-card">
+            <h3>Weekly summary</h3>
+            <div id="weeklySummary" class="summary-box"></div>
+          </div>
+
+          <div class="mini-card">
+            <h3>PRs</h3>
+            <ul id="prList" class="pr-list"></ul>
+          </div>
+
+          <div class="mini-card">
+            <h3>Recent log</h3>
+            <ul id="recentLog" class="log-list"></ul>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
