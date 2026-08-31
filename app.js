@@ -43,6 +43,12 @@ const PROGRAM = {
 
 const DAYS = Object.keys(PROGRAM);
 const STORAGE_KEY = "wca:v1";
+const ACTIVE_FILE_NAME = "workout-companion-active.json";
+const RECOVERY_FILE_PREFIX = "workout-companion-backup-";
+const DAILY_RECOVERY_KEY = "wca:daily-recovery-date";
+const ACTIVE_FILE_KEY = "wca:active-file";
+const LAST_SAVED_KEY = "wca:last-saved";
+const LAST_BACKUP_KEY = "wca:last-backup";
 
 const state = {
   selectedDay: getCurrentDay(),
@@ -56,6 +62,7 @@ const state = {
   restActive: false,
   restTimerId: null,
   data: loadData(),
+  fileHandle: null,
 };
 
 const els = {
@@ -67,6 +74,14 @@ const els = {
   prList: document.getElementById("prList"),
   recentLog: document.getElementById("recentLog"),
   resetBtn: document.getElementById("resetBtn"),
+  backupStatus: document.getElementById("backupStatus"),
+  saveNowBtn: document.getElementById("saveNowBtn"),
+  exportBtn: document.getElementById("exportBtn"),
+  importBtn: document.getElementById("importBtn"),
+  openFileBtn: document.getElementById("openFileBtn"),
+  workoutView: document.getElementById("workoutView"),
+  dataView: document.getElementById("dataView"),
+  tabButtons: document.querySelectorAll(".tab-toggle"),
 };
 
 function getCurrentDay() {
@@ -90,6 +105,198 @@ function loadData() {
 
 function saveData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+  localStorage.setItem(LAST_SAVED_KEY, new Date().toISOString());
+}
+
+function formatDisplayTime(value) {
+  if (!value) return "Not yet";
+  const date = new Date(value);
+  return date.toLocaleString();
+}
+
+function updateBackupStatus() {
+  const lastSaved = localStorage.getItem(LAST_SAVED_KEY);
+  const lastBackup = localStorage.getItem(LAST_BACKUP_KEY);
+
+  els.backupStatus.innerHTML = `
+    <div><strong>Last saved:</strong> ${formatDisplayTime(lastSaved)}</div>
+    <div><strong>Last backup:</strong> ${formatDisplayTime(lastBackup)}</div>
+  `;
+}
+
+function formatStamp(date = new Date()) {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const hh = String(date.getHours()).padStart(2, "0");
+  const mi = String(date.getMinutes()).padStart(2, "0");
+  const ss = String(date.getSeconds()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}_${hh}-${mi}-${ss}`;
+}
+
+function downloadJson(filename, payload) {
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function exportData() {
+  const filename = `${RECOVERY_FILE_PREFIX}${formatStamp()}.json`;
+  downloadJson(filename, state.data);
+}
+
+function persistActiveFile() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+  localStorage.setItem(ACTIVE_FILE_KEY, ACTIVE_FILE_NAME);
+  localStorage.setItem(LAST_SAVED_KEY, new Date().toISOString());
+}
+
+async function saveToFileHandle(handle, payload) {
+  if (!handle || !window.showSaveFilePicker && !handle.createWritable) {
+    return false;
+  }
+
+  try {
+    const writable = await handle.createWritable();
+    await writable.write(JSON.stringify(payload, null, 2));
+    await writable.close();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function saveActiveFile() {
+  if (state.fileHandle) {
+    saveToFileHandle(state.fileHandle, state.data);
+    persistActiveFile();
+    return;
+  }
+
+  const payload = JSON.stringify(state.data, null, 2);
+  const blob = new Blob([payload], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = ACTIVE_FILE_NAME;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  persistActiveFile();
+}
+
+function createDailyRecoveryFile() {
+  const todayStamp = formatStamp(new Date()).slice(0, 10);
+  const lastCreated = localStorage.getItem(DAILY_RECOVERY_KEY);
+
+  if (lastCreated === todayStamp) {
+    return;
+  }
+
+  const backupKey = `wca:backup:${todayStamp}`;
+  localStorage.setItem(backupKey, JSON.stringify({ createdAt: new Date().toISOString(), ...state.data }));
+  localStorage.setItem(DAILY_RECOVERY_KEY, todayStamp);
+  localStorage.setItem(LAST_BACKUP_KEY, new Date().toISOString());
+}
+
+async function openSelectedFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    try {
+      const parsed = JSON.parse(String(event.target.result || "{}"));
+      if (!parsed || !Array.isArray(parsed.logs)) {
+        alert("This file does not contain valid workout data.");
+        return;
+      }
+      state.data = parsed;
+      saveData();
+      render();
+      alert("Workout data loaded successfully.");
+    } catch (error) {
+      alert("Could not read this backup file.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+async function openFilePicker() {
+  if (window.showOpenFilePicker) {
+    try {
+      const [handle] = await window.showOpenFilePicker({
+        multiple: false,
+        types: [{
+          description: "Workout JSON files",
+          accept: { "application/json": [".json"] },
+        }],
+      });
+      state.fileHandle = handle;
+      const file = await handle.getFile();
+      await openSelectedFile(file);
+      return;
+    } catch (error) {
+      // fall through to file input if user cancels
+    }
+  }
+
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+  input.onchange = async (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      await openSelectedFile(file);
+    }
+  };
+  input.click();
+}
+
+function importDataFromFile(file) {
+  if (!file) return;
+  openSelectedFile(file);
+}
+
+function autoDailyBackup() {
+  const todayStamp = formatStamp(new Date()).slice(0, 10);
+  const key = `wca:backup:${todayStamp}`;
+  const existing = localStorage.getItem(key);
+
+  if (existing) {
+    return;
+  }
+
+  const backup = {
+    createdAt: new Date().toISOString(),
+    ...state.data,
+  };
+
+  localStorage.setItem(key, JSON.stringify(backup));
+}
+
+function restoreFromDailyBackupIfAvailable() {
+  const todayStamp = formatStamp(new Date()).slice(0, 10);
+  const backup = localStorage.getItem(`wca:backup:${todayStamp}`);
+
+  if (!backup) {
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(backup);
+    if (parsed && Array.isArray(parsed.logs)) {
+      state.data = parsed;
+    }
+  } catch {
+    // Ignore invalid backup and fall back to current state.
+  }
 }
 
 function getTodayKey() {
@@ -106,6 +313,28 @@ function getCurrentSetTarget() {
   return exercise[2];
 }
 
+function getExerciseTargetReps(exercise) {
+  const logs = state.data.logs.filter((entry) => entry.exercise === exercise[0] && entry.day === state.selectedDay);
+  if (!logs.length) {
+    return {
+      exact: exercise[3],
+      display: `${exercise[2]}-${exercise[3]}`,
+      hasHistory: false,
+    };
+  }
+
+  const recent = logs.slice(-3);
+  const avgReps = recent.reduce((sum, entry) => sum + Number(entry.reps || 0), 0) / recent.length;
+  const rounded = Math.round(avgReps);
+  const exact = Math.max(exercise[2], Math.min(exercise[3], rounded || exercise[3]));
+
+  return {
+    exact,
+    display: `${exact}`,
+    hasHistory: true,
+  };
+}
+
 function asNumber(value) {
   return Number.isFinite(Number(value)) ? Number(value) : 0;
 }
@@ -116,13 +345,34 @@ function buildRecommendation(exerciseName) {
     return { label: "New exercise", value: 0 };
   }
 
-  const maxWeight = Math.max(...prev.map((entry) => Number(entry.weight || 0)));
-  const repsBelow = prev.filter((entry) => Number(entry.reps) < Number(exerciseName.includes("Bench") ? 6 : 8)).length;
-  const topRange = prev.every((entry) => Number(entry.reps) >= 8);
+  const exerciseDef = PROGRAM[state.selectedDay].find(([name]) => name === exerciseName);
+  const minTarget = exerciseDef ? Number(exerciseDef[2]) : 0;
+  const maxTarget = exerciseDef ? Number(exerciseDef[3]) : 0;
+  const increment = exerciseDef ? Number(exerciseDef[4]) : 0;
 
-  if (topRange) return { label: "Ready to increase", value: Number((maxWeight * 1.025).toFixed(2)) };
-  if (repsBelow >= 2) return { label: "Reduce load", value: Number((maxWeight * 0.975).toFixed(2)) };
-  return { label: "Hold", value: Number(maxWeight.toFixed(2)) };
+  const maxWeight = Math.max(...prev.map((entry) => Number(entry.weight || 0)));
+  const recent = prev.slice(-6);
+  const repsAtOrAboveMax = recent.filter((entry) => Number(entry.reps) >= maxTarget).length;
+  const repsBelowMin = recent.filter((entry) => Number(entry.reps) < minTarget).length;
+
+  if (recent.length && repsAtOrAboveMax >= Math.min(recent.length, 2) && repsBelowMin === 0) {
+    return {
+      label: "Top of range reached",
+      value: Number((maxWeight + increment).toFixed(2)),
+    };
+  }
+
+  if (repsBelowMin >= 2) {
+    return {
+      label: "Stay at current load",
+      value: Number(maxWeight.toFixed(2)),
+    };
+  }
+
+  return {
+    label: "Hold load",
+    value: Number(maxWeight.toFixed(2)),
+  };
 }
 
 function renderDaySelector() {
@@ -215,11 +465,12 @@ function renderStats() {
 function renderSession() {
   if (state.phase === "idle") {
     const exercise = PROGRAM[state.selectedDay][0];
+    const repTarget = getExerciseTargetReps(exercise);
     els.sessionCard.innerHTML = `
       <div class="phase-tag">Ready</div>
       <h2 class="exercise-title">${exercise[0]}</h2>
       <div class="exercise-meta">
-        ${state.selectedDay} · ${exercise[1]} sets · ${exercise[2]}-${exercise[3]} reps · ${exercise[5]} · ${exercise[6]}
+        ${state.selectedDay} · ${exercise[1]} sets · ${repTarget.display} reps · ${exercise[5]} · ${exercise[6]}
       </div>
       <div class="recommendation-box">
         <strong>Next recommendation</strong>
@@ -236,11 +487,12 @@ function renderSession() {
 
   if (state.phase === "warmup") {
     const exercise = getCurrentExercise();
+    const repTarget = getExerciseTargetReps(exercise);
     els.sessionCard.innerHTML = `
       <div class="phase-tag">Warm-up</div>
       <h2 class="exercise-title">${exercise[0]}</h2>
       <div class="exercise-meta">
-        ${state.selectedDay} · ${exercise[1]} sets · ${exercise[2]}-${exercise[3]} reps
+        ${state.selectedDay} · ${exercise[1]} sets · ${repTarget.display} reps
       </div>
       <div class="note-box">
         <strong>Suggested warm-up</strong>
@@ -315,13 +567,14 @@ function renderSession() {
 
   const exercise = getCurrentExercise();
   const rec = buildRecommendation(exercise[0]);
+  const repTarget = getExerciseTargetReps(exercise);
   const completedToday = state.data.logs.filter((entry) => entry.day === state.selectedDay && entry.date === getTodayKey());
 
   els.sessionCard.innerHTML = `
     <div class="phase-tag">Exercise ${state.currentExerciseIndex + 1}/${PROGRAM[state.selectedDay].length}</div>
     <h2 class="exercise-title">${exercise[0]}</h2>
     <div class="exercise-meta">
-      ${exercise[1]} sets · ${exercise[2]}-${exercise[3]} reps · ${exercise[5]} · ${exercise[6]} · Target RIR 2
+      ${exercise[1]} sets · ${repTarget.display} reps · ${exercise[5]} · ${exercise[6]} · Target RIR 2
     </div>
 
     <div class="recommendation-box">
@@ -402,7 +655,7 @@ function renderSession() {
     }
 
     state.weight = rec.value || 60;
-    state.reps = exercise[2];
+    state.reps = getExerciseTargetReps(exercise).exact;
     state.rir = 2;
     render();
   });
@@ -514,6 +767,19 @@ function render() {
   renderWeeklySummary();
   renderPRs();
   renderRecentLog();
+  updateBackupStatus();
+  renderTabs();
+}
+
+function renderTabs() {
+  const activeTab = state.activeTab || "workout";
+  els.workoutView.classList.toggle("hidden", activeTab !== "workout");
+  els.dataView.classList.toggle("hidden", activeTab !== "data");
+
+  els.tabButtons.forEach((button) => {
+    const isActive = button.dataset.tab === activeTab;
+    button.classList.toggle("active", isActive);
+  });
 }
 
 els.startBtn.addEventListener("click", () => {
@@ -521,6 +787,18 @@ els.startBtn.addEventListener("click", () => {
   state.currentExerciseIndex = 0;
   state.currentSetNumber = 1;
   render();
+});
+
+els.exportBtn.addEventListener("click", () => {
+  exportData();
+});
+
+els.openFileBtn.addEventListener("click", async () => {
+  await openFilePicker();
+});
+
+els.importBtn.addEventListener("click", async () => {
+  await openFilePicker();
 });
 
 els.resetBtn.addEventListener("click", () => {
@@ -532,4 +810,36 @@ els.resetBtn.addEventListener("click", () => {
   render();
 });
 
+els.saveNowBtn.addEventListener("click", () => {
+  saveActiveFile();
+  render();
+  alert("Active file saved.");
+});
+
+els.tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeTab = button.dataset.tab;
+    renderTabs();
+  });
+});
+
+window.addEventListener("beforeunload", (event) => {
+  autoDailyBackup();
+  persistActiveFile();
+
+  if (state.fileHandle) {
+    event.preventDefault();
+    event.returnValue = "You have an open workout file. Save before leaving?";
+  }
+});
+
+setInterval(() => {
+  saveData();
+  persistActiveFile();
+  createDailyRecoveryFile();
+}, 60000);
+
+restoreFromDailyBackupIfAvailable();
+autoDailyBackup();
+createDailyRecoveryFile();
 render();

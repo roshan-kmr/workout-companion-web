@@ -3,7 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Workout Companion is a mobile-friendly gym planner with progress tracking, workout logs, and backup controls." />
     <title>Workout Companion</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -14,48 +21,75 @@
           <h1>Workout Companion</h1>
         </div>
         <div class="topbar-actions">
-          <button id="resetBtn" class="secondary-btn">Reset</button>
+          <button class="tab-toggle active" data-tab="workout">Active workout</button>
+          <button class="tab-toggle" data-tab="data">Data & backup</button>
         </div>
       </header>
 
-      <main class="layout">
-        <section class="panel main-panel">
-          <div class="day-row">
-            <div>
-              <p class="section-label">Workout day</p>
-              <div id="daySelector" class="day-selector"></div>
+      <main>
+        <section id="workoutView" class="tab-view active">
+          <div class="panel main-panel">
+            <div class="day-row">
+              <div>
+                <p class="section-label">Workout day</p>
+                <div id="daySelector" class="day-selector"></div>
+              </div>
+              <button id="startBtn" class="primary-btn">Start workout</button>
             </div>
-            <button id="startBtn" class="primary-btn">Start workout</button>
+
+            <div id="statsGrid" class="stats-grid"></div>
+
+            <div id="sessionCard" class="session-card"></div>
           </div>
-
-          <div id="statsGrid" class="stats-grid"></div>
-
-          <div id="sessionCard" class="session-card"></div>
         </section>
 
-        <aside class="panel side-panel">
-          <div class="panel-head">
-            <h2>Progress</h2>
-          </div>
+        <section id="dataView" class="tab-view hidden">
+          <div class="panel side-panel">
+            <div class="panel-head">
+              <h2>Data & backup</h2>
+            </div>
 
-          <div class="mini-card">
-            <h3>Weekly summary</h3>
-            <div id="weeklySummary" class="summary-box"></div>
-          </div>
+            <div class="data-actions">
+              <button id="openFileBtn" class="secondary-btn">Open data file</button>
+              <button id="exportBtn" class="secondary-btn">Export</button>
+              <button id="importBtn" class="secondary-btn">Import</button>
+              <button id="saveNowBtn" class="secondary-btn">Save active file</button>
+              <button id="resetBtn" class="secondary-btn danger-btn">Reset</button>
+            </div>
 
-          <div class="mini-card">
-            <h3>PRs</h3>
-            <ul id="prList" class="pr-list"></ul>
-          </div>
+            <div class="mini-card">
+              <h3>Weekly summary</h3>
+              <div id="weeklySummary" class="summary-box"></div>
+            </div>
 
-          <div class="mini-card">
-            <h3>Recent log</h3>
-            <ul id="recentLog" class="log-list"></ul>
+            <div class="mini-card">
+              <h3>PRs</h3>
+              <ul id="prList" class="pr-list"></ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>Backup status</h3>
+              <div id="backupStatus" class="status-box"></div>
+            </div>
+
+            <div class="mini-card">
+              <h3>Recent log</h3>
+              <ul id="recentLog" class="log-list"></ul>
+            </div>
           </div>
-        </aside>
+        </section>
       </main>
     </div>
 
     <script src="app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js").catch(() => {
+            // Service worker registration is optional for local-first workflows.
+          });
+        });
+      }
+    </script>
   </body>
 </html>
