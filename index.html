@@ -17,8 +17,8 @@
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Gym planner</p>
-          <h1>Workout Companion</h1>
+          <p class="eyebrow">Athlete</p>
+          <h1 id="headerUserName">Workout Companion</h1>
         </div>
         <div class="topbar-actions">
           <button class="tab-toggle active" data-tab="workout">Active workout</button>
@@ -29,6 +29,11 @@
       <main>
         <section id="workoutView" class="tab-view active">
           <div class="panel main-panel">
+            <div class="user-row">
+              <label class="user-label" for="userNameInput">User name</label>
+              <input id="userNameInput" class="user-name-input" type="text" placeholder="Enter your name" maxlength="40" />
+            </div>
+
             <div class="day-row">
               <div>
                 <p class="section-label">Workout day</p>

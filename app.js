@@ -43,6 +43,7 @@ const PROGRAM = {
 
 const DAYS = Object.keys(PROGRAM);
 const STORAGE_KEY = "wca:v1";
+const USER_NAME_KEY = "wca:user-name";
 const ACTIVE_FILE_NAME = "workout-companion-active.json";
 const RECOVERY_FILE_PREFIX = "workout-companion-backup-";
 const DAILY_RECOVERY_KEY = "wca:daily-recovery-date";
@@ -66,6 +67,7 @@ const state = {
 };
 
 const els = {
+  userNameInput: document.getElementById("userNameInput"),
   daySelector: document.getElementById("daySelector"),
   startBtn: document.getElementById("startBtn"),
   statsGrid: document.getElementById("statsGrid"),
@@ -93,17 +95,34 @@ function getCurrentDay() {
 function loadData() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) {
-    return { logs: [] };
+    return { userName: getStoredUserName(), logs: [] };
   }
 
   try {
-    return JSON.parse(saved);
+    const parsed = JSON.parse(saved);
+    return {
+      userName: parsed.userName || getStoredUserName(),
+      logs: Array.isArray(parsed.logs) ? parsed.logs : [],
+    };
   } catch {
-    return { logs: [] };
+    return { userName: getStoredUserName(), logs: [] };
   }
 }
 
+function getStoredUserName() {
+  return localStorage.getItem(USER_NAME_KEY) || "";
+}
+
+function saveUserName() {
+  const name = (els.userNameInput?.value || "").trim();
+  state.data.userName = name;
+  localStorage.setItem(USER_NAME_KEY, name);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+}
+
 function saveData() {
+  state.data.userName = (els.userNameInput?.value || "").trim();
+  localStorage.setItem(USER_NAME_KEY, state.data.userName || "");
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
   localStorage.setItem(LAST_SAVED_KEY, new Date().toISOString());
 }
@@ -761,6 +780,21 @@ function renderRecentLog() {
 }
 
 function render() {
+  const userName = state.data.userName || getStoredUserName() || "Athlete";
+  if (els.userNameInput) {
+    els.userNameInput.value = userName;
+  }
+
+  const headerName = document.getElementById("headerUserName");
+  if (headerName) {
+    headerName.textContent = userName || "Workout Companion";
+  }
+
+  const eyebrow = document.querySelector(".eyebrow");
+  if (eyebrow) {
+    eyebrow.textContent = userName ? "Athlete" : "Gym planner";
+  }
+
   renderDaySelector();
   renderStats();
   renderSession();
@@ -781,6 +815,10 @@ function renderTabs() {
     button.classList.toggle("active", isActive);
   });
 }
+
+els.userNameInput?.addEventListener("input", () => {
+  saveUserName();
+});
 
 els.startBtn.addEventListener("click", () => {
   state.phase = "warmup";
