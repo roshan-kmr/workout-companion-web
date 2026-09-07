@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="icon.svg" />
     <link rel="apple-touch-icon" href="icon.svg" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <div class="app-shell">
@@ -30,17 +30,38 @@
       <main>
         <section id="workoutView" class="tab-view active">
           <div class="panel main-panel">
-            <div class="day-row">
-              <div>
-                <p class="section-label">Workout day</p>
-                <div id="daySelector" class="day-selector"></div>
+            <div id="routinesHome">
+              <div class="routines-head">
+                <div>
+                  <p class="section-label">Homepage</p>
+                  <h2>Routines</h2>
+                  <p class="muted-copy">Choose a routine to open its workout page.</p>
+                </div>
               </div>
-              <button id="startBtn" class="primary-btn">Start workout</button>
+
+              <div id="daySelector" class="routine-grid"></div>
             </div>
 
-            <div id="statsGrid" class="stats-grid"></div>
+            <div id="routineDetail" class="routine-detail hidden">
+              <div class="detail-head">
+                <button id="backToRoutinesBtn" class="secondary-btn">Back to Routines</button>
+                <div>
+                  <h2 id="routineDetailTitle"></h2>
+                  <p id="routineDetailFocus" class="muted-copy"></p>
+                </div>
+              </div>
 
-            <div id="sessionCard" class="session-card"></div>
+              <div id="routineExerciseList" class="routine-exercise-list"></div>
+
+              <div id="selectedRoutineLabel" class="selected-routine-label hidden"></div>
+              <button id="startBtn" class="primary-btn hidden">Start workout</button>
+              <div id="statsGrid" class="stats-grid hidden"></div>
+              <div id="sessionCard" class="session-card hidden"></div>
+
+              <div class="end-routine-row">
+                <button id="endRoutineBtn" class="primary-btn end-routine-btn">End routine and save</button>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -103,7 +124,7 @@
       </main>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=9"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
