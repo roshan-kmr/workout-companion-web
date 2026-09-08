@@ -74,11 +74,15 @@ const state = {
   restDuration: 90,
   restTimerId: null,
   completedExercises: {},
+  pendingSetValues: {},
   data: loadData(),
   fileHandle: null,
 };
 
 const els = {
+  menuToggle: document.getElementById("menuToggle"),
+  menuClose: document.getElementById("menuClose"),
+  topbarActions: document.getElementById("topbarActions"),
   routinesHome: document.getElementById("routinesHome"),
   routineDetail: document.getElementById("routineDetail"),
   routineDetailTitle: document.getElementById("routineDetailTitle"),
@@ -492,12 +496,41 @@ function renderRoutinePage() {
       isSetCompleted(state.selectedDay, exerciseName, setIndex + 1)
     ));
     const completed = completedSets.every(Boolean);
-    const rows = Array.from({ length: exercise[1] }, (_, setIndex) => `
+    const rows = Array.from({ length: exercise[1] }, (_, setIndex) => {
+      const setKey = `${exerciseKey}:${setIndex + 1}`;
+      const todayEntry = state.data.logs.find((entry) => (
+        entry.date === getTodayKey()
+        && entry.day === state.selectedDay
+        && entry.exercise === exerciseName
+        && Number(entry.setNumber) === setIndex + 1
+      ));
+      const weightValue = state.pendingSetValues[setKey]?.weight ?? todayEntry?.weight ?? suggestedWeight;
+      const repsValue = state.pendingSetValues[setKey]?.reps ?? todayEntry?.reps ?? suggestedReps;
+      const rirValue = state.pendingSetValues[setKey]?.rir ?? todayEntry?.rir ?? 2;
+
+      return `
       <tr>
         <td>${setIndex + 1}</td>
         <td>${previous ? `${previous.weight} kg × ${previous.reps}` : "No previous log"}</td>
-        <td>${suggestedWeight} kg</td>
-        <td>${suggestedReps}</td>
+        <td>
+          <div class="set-editor">
+            <button class="set-adjust-btn" type="button" data-adjust-set="${setKey}" data-set-field="weight" data-set-delta="-0.5" aria-label="Decrease weight">-</button>
+            <input class="set-input" type="number" min="0" step="0.5" value="${weightValue}" data-set-weight="${setKey}" aria-label="Set ${setIndex + 1} weight" />
+            <button class="set-adjust-btn" type="button" data-adjust-set="${setKey}" data-set-field="weight" data-set-delta="0.5" aria-label="Increase weight">+</button>
+          </div>
+        </td>
+        <td>
+          <div class="set-editor">
+            <button class="set-adjust-btn" type="button" data-adjust-set="${setKey}" data-set-field="reps" data-set-delta="-1" aria-label="Decrease reps">-</button>
+            <input class="set-input" type="number" min="1" step="1" value="${repsValue}" data-set-reps="${setKey}" aria-label="Set ${setIndex + 1} reps" />
+            <button class="set-adjust-btn" type="button" data-adjust-set="${setKey}" data-set-field="reps" data-set-delta="1" aria-label="Increase reps">+</button>
+          </div>
+        </td>
+        <td>
+          <select class="set-rir-input" data-set-rir="${setKey}" aria-label="Set ${setIndex + 1} RIR">
+            ${[0, 1, 2, 3, 4].map((rir) => `<option value="${rir}" ${Number(rirValue) === rir ? "selected" : ""}>${rir === 4 ? "4+" : rir}</option>`).join("")}
+          </select>
+        </td>
         <td>
           <label class="set-complete" title="Mark set complete">
             <input type="checkbox" data-complete-set="${exerciseKey}:${setIndex + 1}" ${completedSets[setIndex] ? "checked" : ""} />
@@ -505,7 +538,8 @@ function renderRoutinePage() {
           </label>
         </td>
       </tr>
-    `).join("");
+    `;
+    }).join("");
 
     return `
       <details class="exercise-dropdown" data-exercise-key="${exerciseKey}" ${
@@ -531,7 +565,7 @@ function renderRoutinePage() {
           </div>
           <table class="exercise-table">
             <thead>
-              <tr><th>Set</th><th>Previous</th><th>Suggested weight</th><th>Suggested reps</th><th>Done</th></tr>
+              <tr><th>Set</th><th>Previous</th><th>Suggested weight</th><th>Suggested reps</th><th>RIR</th><th>Done</th></tr>
             </thead>
             <tbody>${rows}</tbody>
           </table>
@@ -555,6 +589,36 @@ function renderRoutinePage() {
       const setNumber = Number(parts.pop());
       const exerciseKey = parts.join(":");
       setSetCompletion(exerciseKey, setNumber, checkbox.checked);
+    });
+  });
+
+  els.routineExerciseList.querySelectorAll("[data-set-weight], [data-set-reps], [data-set-rir]").forEach((input) => {
+    input.addEventListener("click", (event) => event.stopPropagation());
+    input.addEventListener("change", () => {
+      const setKey = input.dataset.setWeight || input.dataset.setReps || input.dataset.setRir;
+      const field = input.dataset.setWeight ? "weight" : input.dataset.setReps ? "reps" : "rir";
+      const value = Number(input.value);
+      if (!state.pendingSetValues[setKey]) {
+        state.pendingSetValues[setKey] = {};
+      }
+      state.pendingSetValues[setKey][field] = value;
+    });
+  });
+
+  els.routineExerciseList.querySelectorAll("[data-adjust-set]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const setKey = button.dataset.adjustSet;
+      const field = button.dataset.setField;
+      const delta = Number(button.dataset.setDelta);
+      const input = button.parentElement.querySelector(field === "weight" ? "[data-set-weight]" : "[data-set-reps]");
+      const current = Number(state.pendingSetValues[setKey]?.[field] ?? input?.value ?? 0);
+      if (!state.pendingSetValues[setKey]) {
+        state.pendingSetValues[setKey] = {};
+      }
+      state.pendingSetValues[setKey][field] = Math.max(field === "weight" ? 0 : 1, Number((current + delta).toFixed(2)));
+      renderRoutinePage();
     });
   });
 
@@ -662,14 +726,15 @@ function setSetCompletion(exerciseKey, setNumber, completed, shouldRender = true
     const recommendation = buildRecommendation(exerciseName);
     const logs = state.data.logs.filter((entry) => entry.exercise === exerciseName && entry.day === day);
     const previous = logs.length ? logs[logs.length - 1] : null;
+    const setKey = `${exerciseKey}:${setNumber}`;
     state.data.logs.push({
       date: getTodayKey(),
       day,
       exercise: exerciseName,
       setNumber,
-      weight: recommendation.value || Number(previous?.weight || 0),
-      reps: getExerciseTargetReps(exercise).exact,
-      rir: 2,
+      weight: state.pendingSetValues[setKey]?.weight ?? (recommendation.value || Number(previous?.weight || 0)),
+      reps: state.pendingSetValues[setKey]?.reps ?? getExerciseTargetReps(exercise).exact,
+      rir: state.pendingSetValues[setKey]?.rir ?? 2,
     });
   } else if (!completed) {
     state.data.logs = state.data.logs.filter((entry) => !(
@@ -1152,8 +1217,20 @@ els.userNameInput?.addEventListener("input", () => {
 els.tabButtons.forEach((button) => {
   button.addEventListener("click", () => {
     state.activeTab = button.dataset.tab;
+    els.topbarActions.classList.remove("open");
+    els.menuToggle.setAttribute("aria-expanded", "false");
     renderTabs();
   });
+});
+
+els.menuToggle.addEventListener("click", () => {
+  const isOpen = els.topbarActions.classList.toggle("open");
+  els.menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+els.menuClose.addEventListener("click", () => {
+  els.topbarActions.classList.remove("open");
+  els.menuToggle.setAttribute("aria-expanded", "false");
 });
 
 els.startBtn.addEventListener("click", () => {
