@@ -51,7 +51,7 @@ button {
 
 @media (max-width: 760px) {
   .app-shell {
-    padding: 18px 12px 40px;
+    padding: 12px 8px 28px;
   }
 
   .topbar,
@@ -144,6 +144,26 @@ button {
     padding: 16px;
   }
 
+  .main-panel {
+    padding: 12px;
+  }
+
+  .detail-head {
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .routine-exercise-list {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .exercise-dropdown summary {
+    min-height: 48px;
+    padding: 9px 10px;
+  }
+
   .detail-head {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -159,8 +179,8 @@ button {
   }
 
   .exercise-table {
-    min-width: 0;
-    table-layout: fixed;
+    min-width: 700px;
+    table-layout: auto;
   }
 
   .exercise-table th,
@@ -169,6 +189,14 @@ button {
     font-size: 0.74rem;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
   }
 
   .exercise-table th {
@@ -215,6 +243,20 @@ button {
   .set-complete input {
     width: 16px;
     height: 16px;
+  }
+
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+  }
+
+  .exercise-table {
+    width: 700px;
+    min-width: 700px;
+    table-layout: auto;
   }
 }
 
@@ -1032,5 +1074,19 @@ button:hover {
     cursor: pointer;
     font-size: 1.5rem;
     line-height: 1;
+  }
+
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+  }
+
+  .exercise-table {
+    width: 700px;
+    min-width: 700px;
+    table-layout: auto;
   }
 }
