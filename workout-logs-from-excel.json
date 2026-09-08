@@ -1,0 +1,1787 @@
+﻿{
+  "userName": "Roshan",
+  "createdAt": "2026-09-08T00:00:00.000Z",
+  "source": "Updated Smart Progressive Overload Tracker workbook",
+  "logs": [
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 3,
+      "weight": 20,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 1,
+      "weight": 10,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 2,
+      "weight": 10,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 3,
+      "weight": 10,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 1,
+      "weight": 3,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 2,
+      "weight": 3,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 3,
+      "weight": 3,
+      "reps": 10,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 1,
+      "weight": 10,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 2,
+      "weight": 10,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 3,
+      "weight": 10,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-24",
+      "createdAt": "2026-08-24T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 1,
+      "weight": 1,
+      "reps": 6,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 2,
+      "weight": 1,
+      "reps": 5,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 3,
+      "weight": 1,
+      "reps": 4,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 1,
+      "weight": 3.5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 2,
+      "weight": 3,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 3,
+      "weight": 3,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 3,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-25",
+      "createdAt": "2026-08-25T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 10,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 6,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 6,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 6,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 10,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 3,
+      "weight": 25,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 3,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Bulgarian Split Squat",
+      "setNumber": 1,
+      "weight": 1,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Bulgarian Split Squat",
+      "setNumber": 2,
+      "weight": 1,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-27",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 3,
+      "weight": 5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Incline Bench Press",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Incline Bench Press",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 8,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 1,
+      "weight": 40,
+      "reps": 8,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 2,
+      "weight": 40,
+      "reps": 8,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 1,
+      "weight": 3,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 2,
+      "weight": 3,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Extension",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 10,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Extension",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 10,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Curl",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Curl",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 1,
+      "weight": 40,
+      "reps": 10,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 2,
+      "weight": 40,
+      "reps": 10,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 3,
+      "weight": 40,
+      "reps": 10,
+      "rir": 4
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 1,
+      "weight": 7.5,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 2,
+      "weight": 7.5,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 3,
+      "weight": 7.5,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 2,
+      "weight": 6,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-28",
+      "createdAt": "2026-08-28T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 3,
+      "weight": 6,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 6,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 6,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 3,
+      "weight": 25,
+      "reps": 6,
+      "rir": 2
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 1,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 2,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 3,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 1,
+      "weight": 3.3,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 2,
+      "weight": 3.3,
+      "reps": 15,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 3,
+      "weight": 3.3,
+      "reps": 15,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 1,
+      "weight": 11,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 2,
+      "weight": 11,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 3,
+      "weight": 11,
+      "reps": 10,
+      "rir": 0
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 1,
+      "weight": 6,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 2,
+      "weight": 6,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 1,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 2,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 3,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 1,
+      "weight": 40,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 2,
+      "weight": 40,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 3,
+      "weight": 40,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 1,
+      "weight": 35,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 2,
+      "weight": 35,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 1,
+      "weight": 3.5,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 2,
+      "weight": 3.5,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 3,
+      "weight": 3.5,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 3,
+      "weight": 5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-01",
+      "createdAt": "2026-09-01T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "HIIT Bike / Air Bike",
+      "setNumber": 1,
+      "weight": 10,
+      "reps": 0,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "HIIT Bike / Air Bike",
+      "setNumber": 2,
+      "weight": 10,
+      "reps": 0,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "HIIT Bike / Air Bike",
+      "setNumber": 3,
+      "weight": 10,
+      "reps": 0,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "Cable Crunch",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "Cable Crunch",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "Cable Crunch",
+      "setNumber": 3,
+      "weight": 20,
+      "reps": 15,
+      "rir": 4
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "Pallof Press",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-02",
+      "createdAt": "2026-09-02T18:00:00.000Z",
+      "day": "Wednesday",
+      "exercise": "Pallof Press",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 7,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 7,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Back Squat / Hack Squat",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 7,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Romanian Deadlift",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 1,
+      "weight": 80,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 2,
+      "weight": 80,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Leg Press",
+      "setNumber": 3,
+      "weight": 80,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Leg Curl",
+      "setNumber": 3,
+      "weight": 25,
+      "reps": 10,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Bulgarian Split Squat",
+      "setNumber": 1,
+      "weight": 10,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Bulgarian Split Squat",
+      "setNumber": 2,
+      "weight": 10,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 1,
+      "weight": 7.5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 2,
+      "weight": 7.5,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-03",
+      "createdAt": "2026-09-03T18:00:00.000Z",
+      "day": "Thursday",
+      "exercise": "Seated Calf Raise",
+      "setNumber": 3,
+      "weight": 7.5,
+      "reps": 10,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Incline Bench Press",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Incline Bench Press",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 1,
+      "weight": 45,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 2,
+      "weight": 45,
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 1,
+      "weight": 6,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 2,
+      "weight": 6,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Extension",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Extension",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Curl",
+      "setNumber": 1,
+      "weight": 25,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Leg Curl",
+      "setNumber": 2,
+      "weight": 25,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 1,
+      "weight": 40,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 2,
+      "weight": 40,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Calf Raise",
+      "setNumber": 3,
+      "weight": 40,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 1,
+      "weight": 7.5,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 2,
+      "weight": 7.5,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Curl",
+      "setNumber": 3,
+      "weight": 7.5,
+      "reps": 15,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 1,
+      "weight": 7,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 2,
+      "weight": 7,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-04",
+      "createdAt": "2026-09-04T18:00:00.000Z",
+      "day": "Friday",
+      "exercise": "Optional Triceps Extension",
+      "setNumber": 3,
+      "weight": 7,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 1,
+      "weight": 30,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 2,
+      "weight": 30,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Barbell Bench Press",
+      "setNumber": 3,
+      "weight": 30,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 1,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 2,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Incline Dumbbell Press",
+      "setNumber": 3,
+      "weight": 12.5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 1,
+      "weight": 6.6,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 2,
+      "weight": 6.6,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Lateral Raise",
+      "setNumber": 3,
+      "weight": 6.6,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 1,
+      "weight": 20,
+      "reps": 15,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 2,
+      "weight": 20,
+      "reps": 15,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Cable Triceps Pushdown",
+      "setNumber": 3,
+      "weight": 20,
+      "reps": 15,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 1,
+      "weight": 15,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-07",
+      "createdAt": "2026-09-07T18:00:00.000Z",
+      "day": "Monday",
+      "exercise": "Overhead Triceps Extension",
+      "setNumber": 2,
+      "weight": 15,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 1,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 2,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Pull-ups / Assisted Pull-ups",
+      "setNumber": 3,
+      "weight": 1,
+      "reps": 6,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 1,
+      "weight": 45,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 2,
+      "weight": 45,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Chest-supported Row",
+      "setNumber": 3,
+      "weight": 45,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 1,
+      "weight": 35,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Lat Pulldown",
+      "setNumber": 2,
+      "weight": 35,
+      "reps": 12,
+      "rir": 0
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 1,
+      "weight": 6.6,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 2,
+      "weight": 6.6,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Cable Rear-delt Fly",
+      "setNumber": 3,
+      "weight": 6.6,
+      "reps": 15,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Incline Dumbbell Curl",
+      "setNumber": 3,
+      "weight": 5,
+      "reps": 12,
+      "rir": 2
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 1,
+      "weight": 5,
+      "reps": 12,
+      "rir": 1
+    },
+    {
+      "date": "2026-09-08",
+      "createdAt": "2026-09-08T18:00:00.000Z",
+      "day": "Tuesday",
+      "exercise": "Hammer Curl",
+      "setNumber": 2,
+      "weight": 5,
+      "reps": 12,
+      "rir": 1
+    }
+  ],
+  "routineHistory": [
+    {
+      "routine": "Full Body",
+      "day": "Friday",
+      "date": "2026-08-28T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 19
+    },
+    {
+      "routine": "Push Strength",
+      "day": "Monday",
+      "date": "2026-08-24T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 14
+    },
+    {
+      "routine": "Leg Strength",
+      "day": "Thursday",
+      "date": "2026-08-27T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 17
+    },
+    {
+      "routine": "Pull Strength",
+      "day": "Tuesday",
+      "date": "2026-08-25T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 16
+    },
+    {
+      "routine": "Full Body",
+      "day": "Friday",
+      "date": "2026-09-04T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 19
+    },
+    {
+      "routine": "Push Strength",
+      "day": "Monday",
+      "date": "2026-08-31T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 14
+    },
+    {
+      "routine": "Leg Strength",
+      "day": "Thursday",
+      "date": "2026-09-03T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 17
+    },
+    {
+      "routine": "Pull Strength",
+      "day": "Tuesday",
+      "date": "2026-09-01T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 16
+    },
+    {
+      "routine": "Core & Conditioning",
+      "day": "Wednesday",
+      "date": "2026-09-02T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 8
+    },
+    {
+      "routine": "Push Strength",
+      "day": "Monday",
+      "date": "2026-09-07T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 14
+    },
+    {
+      "routine": "Pull Strength",
+      "day": "Tuesday",
+      "date": "2026-09-08T20:00:00.000Z",
+      "userName": "Roshan",
+      "completedSets": 16
+    }
+  ]
+}
+

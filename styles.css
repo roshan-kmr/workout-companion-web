@@ -540,20 +540,31 @@ button {
   font-size: 0.76rem;
 }
 
+.history-decision-detail {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
 .history-signal {
   display: inline-block;
   font-size: 0.78rem;
 }
 
-.signal-increase-weight {
+.signal-increase-2-2-5 {
   color: var(--accent-2);
 }
 
-.signal-high-fatigue {
+.signal-too-heavy,
+.signal-fatigue,
+.signal-overload-too-fast,
+.signal-deload-signal {
   color: var(--danger);
 }
 
-.signal-hold-load,
+.signal-hold-add-reps,
 .signal-new {
   color: var(--warning);
 }

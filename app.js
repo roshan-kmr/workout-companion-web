@@ -428,49 +428,153 @@ function asNumber(value) {
   return Number.isFinite(Number(value)) ? Number(value) : 0;
 }
 
+function getExerciseSessions(day, exerciseName, throughDate = "") {
+  const sessions = new Map();
+  state.data.logs
+    .filter((entry) => (
+      entry.day === day
+      && entry.exercise === exerciseName
+      && (!throughDate || entry.date <= throughDate)
+    ))
+    .forEach((entry) => {
+      if (!sessions.has(entry.date)) sessions.set(entry.date, []);
+      sessions.get(entry.date).push(entry);
+    });
+
+  return [...sessions.entries()]
+    .sort(([leftDate], [rightDate]) => leftDate.localeCompare(rightDate))
+    .map(([date, entries]) => {
+      const weights = entries.map((entry) => Number(entry.weight || 0));
+      const reps = entries.map((entry) => Number(entry.reps || 0));
+      const rirValues = entries.map((entry) => Number(entry.rir)).filter(Number.isFinite);
+      return {
+        date,
+        entries,
+        sets: entries.length,
+        volume: entries.reduce((sum, entry) => sum + Number(entry.weight || 0) * Number(entry.reps || 0), 0),
+        topWeight: Math.max(...weights, 0),
+        minReps: Math.min(...reps, 0),
+        maxReps: Math.max(...reps, 0),
+        avgRir: rirValues.length ? rirValues.reduce((sum, value) => sum + value, 0) / rirValues.length : null,
+        hasRirZero: rirValues.some((value) => value === 0),
+      };
+    });
+}
+
+function getMuscleSessions(day, muscle, throughDate = "") {
+  const exerciseNames = new Set(
+    PROGRAM[day]
+      .filter((exercise) => exercise[6] === muscle)
+      .map((exercise) => exercise[0])
+  );
+  const sessions = new Map();
+  state.data.logs
+    .filter((entry) => (
+      entry.day === day
+      && exerciseNames.has(entry.exercise)
+      && (!throughDate || entry.date <= throughDate)
+    ))
+    .forEach((entry) => {
+      if (!sessions.has(entry.date)) sessions.set(entry.date, 0);
+      sessions.set(entry.date, sessions.get(entry.date) + Number(entry.weight || 0) * Number(entry.reps || 0));
+    });
+  return [...sessions.entries()]
+    .sort(([leftDate], [rightDate]) => leftDate.localeCompare(rightDate))
+    .map(([date, volume]) => ({ date, volume }));
+}
+
+function hasDeloadSignal(day, exerciseDef, throughDate = "") {
+  const sessions = getMuscleSessions(day, exerciseDef[6], throughDate);
+  if (sessions.length < 3) return false;
+  const recent = sessions.slice(-3);
+  return recent[1].volume < recent[0].volume * 0.9
+    && recent[2].volume < recent[1].volume * 0.9;
+}
+
+function getNextWeight(lastWeight, increment) {
+  if (!lastWeight || !increment) return Number(lastWeight.toFixed(2));
+  const target = Math.max(lastWeight + increment, lastWeight * 1.025);
+  return Number((Math.ceil(target / increment) * increment).toFixed(2));
+}
+
+function formatGuidanceValue(guidance) {
+  if (!guidance.value) return guidance.label;
+  if (guidance.signal === "Increase 2-2.5%") return `${guidance.value} kg next`;
+  if (guidance.signal === "Deload signal") return `${guidance.value} kg; reduce volume`;
+  return `Hold or reduce from ${guidance.value} kg`;
+}
+
 function getExerciseGuidance(day, exerciseName, throughDate = "") {
-  const prev = state.data.logs.filter((entry) => (
-    entry.exercise === exerciseName
-    && entry.day === day
-    && (!throughDate || entry.date <= throughDate)
-  ));
-  if (!prev.length) {
-    return { label: "Start tracking", value: 0, signal: "New" };
+  const exerciseDef = PROGRAM[day].find(([name]) => name === exerciseName);
+  const sessions = getExerciseSessions(day, exerciseName, throughDate);
+  if (!exerciseDef || !sessions.length) {
+    return { label: "Start tracking", value: 0, signal: "New", detail: "No logged work yet" };
   }
 
-  const exerciseDef = PROGRAM[day].find(([name]) => name === exerciseName);
   const minTarget = exerciseDef ? Number(exerciseDef[2]) : 0;
   const maxTarget = exerciseDef ? Number(exerciseDef[3]) : 0;
   const increment = exerciseDef ? Number(exerciseDef[4]) : 0;
+  const latest = sessions[sessions.length - 1];
+  const previous = sessions[sessions.length - 2];
+  const lastWeight = latest.topWeight;
+  const allPrescribedSets = latest.sets >= Number(exerciseDef[1]);
+  const allAtTop = allPrescribedSets
+    && latest.entries.every((entry) => Number(entry.reps) >= maxTarget && Number(entry.rir || 0) >= 1);
+  const repsBelowMin = latest.entries.filter((entry) => Number(entry.reps) < minTarget).length;
+  const volumeDrop = Boolean(previous && previous.volume > 0 && latest.volume < previous.volume * 0.9);
+  const overloadTooFast = Boolean(previous && latest.topWeight > previous.topWeight && volumeDrop);
+  const deload = hasDeloadSignal(day, exerciseDef, throughDate);
 
-  const recent = prev.slice(-6);
-  const lastWeight = Number(prev[prev.length - 1].weight || 0);
-  const successfulSets = recent.filter((entry) => Number(entry.reps) >= minTarget && Number(entry.rir) <= 2).length;
-  const repsAtOrAboveMax = recent.filter((entry) => Number(entry.reps) >= maxTarget && Number(entry.rir) <= 2).length;
-  const repsBelowMin = recent.filter((entry) => Number(entry.reps) < minTarget).length;
-  const distinctDates = new Set(recent.map((entry) => entry.date)).size;
-  const hardSets = recent.filter((entry) => Number(entry.rir) <= 1).length;
-
-  if (recent.length >= 2 && distinctDates >= 2 && repsAtOrAboveMax >= 2 && successfulSets >= recent.length - 1) {
+  if (deload) {
     return {
-      label: "Top of range reached across recent work",
-      value: Number((lastWeight + increment).toFixed(2)),
-      signal: "Increase weight",
+      label: "Reduce volume 30-50% for recovery",
+      value: Number(lastWeight.toFixed(2)),
+      signal: "Deload signal",
+      detail: "Two consecutive muscle-level volume declines",
     };
   }
 
-  if (recent.length >= 2 && repsBelowMin >= 2 || recent.length >= 3 && hardSets >= recent.length - 1 && repsBelowMin >= 1) {
+  if (overloadTooFast) {
     return {
-      label: "Reduce load or add recovery before progressing",
+      label: "Do not increase; recover before progressing",
       value: Number(lastWeight.toFixed(2)),
-      signal: "High fatigue",
+      signal: "Overload too fast",
+      detail: "Load increased while volume dropped more than 10%",
+    };
+  }
+
+  if (latest.hasRirZero || repsBelowMin >= 2) {
+    return {
+      label: "Hold or reduce load",
+      value: Number(lastWeight.toFixed(2)),
+      signal: "Too heavy",
+      detail: latest.hasRirZero ? "RIR 0 recorded" : "Multiple sets below the rep floor",
+    };
+  }
+
+  if (volumeDrop) {
+    return {
+      label: "Do not increase; prioritize recovery",
+      value: Number(lastWeight.toFixed(2)),
+      signal: "Fatigue",
+      detail: "Performance or volume declined more than 10%",
+    };
+  }
+
+  if (sessions.length >= 2 && allAtTop && latest.avgRir >= 1) {
+    return {
+      label: "Top of range reached on all prescribed sets",
+      value: getNextWeight(lastWeight, increment),
+      signal: "Increase 2-2.5%",
+      detail: "All prescribed sets reached the top with at least 1 RIR",
     };
   }
 
   return {
-    label: "Hold load",
+    label: "Hold load and add reps",
     value: Number(lastWeight.toFixed(2)),
-    signal: "Hold load",
+    signal: "Hold & add reps",
+    detail: "Progress is within range but not ready for overload",
   };
 }
 
@@ -532,8 +636,11 @@ function renderRoutinePage() {
     const recommendation = buildRecommendation(exerciseName);
     const suggestedWeight = recommendation.value || Number(previous?.weight || 0);
     const suggestedReps = getExerciseTargetReps(exercise).exact;
+    const nextSessionValue = recommendation.signal === "Increase 2-2.5%"
+      ? `${suggestedWeight} kg x ${suggestedReps} reps`
+      : formatGuidanceValue(recommendation);
     const nextSessionNote = suggestedWeight
-      ? `<span class="exercise-next-session">Next session: ${suggestedWeight} kg x ${suggestedReps} reps</span>`
+      ? `<span class="exercise-next-session">Next session: ${nextSessionValue}</span>`
       : "";
     const exerciseKey = `${state.selectedDay}:${exerciseName}`;
     const restTimerActive = state.restActive && state.restExerciseKey === exerciseKey;
@@ -922,8 +1029,9 @@ function renderHistory() {
           <td>${last ? formatHistoryDate(last.date) : "-"}</td>
           <td>${lastResult}</td>
           <td>
-            <strong class="history-signal signal-${guidance.signal.toLowerCase().replaceAll(" ", "-")}">${guidance.signal}</strong>
-            <span class="history-next-step">${guidance.value ? `${guidance.value} kg next` : guidance.label}</span>
+            <strong class="history-signal signal-${guidance.signal.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}">${guidance.signal}</strong>
+            <span class="history-next-step">${formatGuidanceValue(guidance)}</span>
+            <span class="history-decision-detail">${guidance.detail || ""}</span>
           </td>
         </tr>
       `;

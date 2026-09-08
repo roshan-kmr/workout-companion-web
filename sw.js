@@ -1,4 +1,4 @@
-const CACHE_NAME = 'workout-companion-v24';
+const CACHE_NAME = 'workout-companion-v26';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', (event) => {
