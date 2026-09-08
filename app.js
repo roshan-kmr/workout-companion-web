@@ -75,6 +75,8 @@ const state = {
   restTimerId: null,
   completedExercises: {},
   pendingSetValues: {},
+  historySessionLimits: {},
+  historySelectedDates: {},
   data: loadData(),
   fileHandle: null,
 };
@@ -109,6 +111,8 @@ const els = {
   openFileBtn: document.getElementById("openFileBtn"),
   workoutView: document.getElementById("workoutView"),
   dataView: document.getElementById("dataView"),
+  historyView: document.getElementById("historyView"),
+  historyContent: document.getElementById("historyContent"),
   tabButtons: document.querySelectorAll(".tab-toggle"),
 };
 
@@ -137,8 +141,10 @@ function loadData() {
   try {
     const parsed = JSON.parse(saved);
     return {
+      ...parsed,
       userName: (parsed.userName && parsed.userName.trim()) || getUserNameValue(),
       logs: Array.isArray(parsed.logs) ? parsed.logs : [],
+      routineHistory: Array.isArray(parsed.routineHistory) ? parsed.routineHistory : [],
     };
   } catch {
     return { userName: getUserNameValue(), logs: [] };
@@ -158,7 +164,7 @@ function saveUserName() {
 }
 
 function saveData() {
-  state.data.userName = ((els.userNameInput?.value || "").trim() || "USER");
+  state.data.userName = ((state.data.userName || getUserNameValue()).trim() || "USER");
   localStorage.setItem(USER_NAME_KEY, state.data.userName || "USER");
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
   localStorage.setItem(LAST_SAVED_KEY, new Date().toISOString());
@@ -228,11 +234,13 @@ async function saveToFileHandle(handle, payload) {
   }
 }
 
-function saveActiveFile() {
+async function saveActiveFile() {
   if (state.fileHandle) {
-    saveToFileHandle(state.fileHandle, state.data);
-    persistActiveFile();
-    return;
+    const saved = await saveToFileHandle(state.fileHandle, state.data);
+    if (saved) {
+      persistActiveFile();
+    }
+    return saved;
   }
 
   const payload = JSON.stringify(state.data, null, 2);
@@ -246,6 +254,7 @@ function saveActiveFile() {
   a.remove();
   URL.revokeObjectURL(url);
   persistActiveFile();
+  return true;
 }
 
 function createDailyRecoveryFile() {
@@ -338,6 +347,18 @@ function autoDailyBackup() {
 }
 
 function restoreFromDailyBackupIfAvailable() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed && Array.isArray(parsed.logs)) {
+        return;
+      }
+    } catch {
+      // Recover from the daily backup when the primary record is corrupted.
+    }
+  }
+
   const todayStamp = formatStamp(new Date()).slice(0, 10);
   const backup = localStorage.getItem(`wca:backup:${todayStamp}`);
 
@@ -349,6 +370,7 @@ function restoreFromDailyBackupIfAvailable() {
     const parsed = JSON.parse(backup);
     if (parsed && Array.isArray(parsed.logs)) {
       state.data = parsed;
+      saveData();
     }
   } catch {
     // Ignore invalid backup and fall back to current state.
@@ -356,7 +378,7 @@ function restoreFromDailyBackupIfAvailable() {
 }
 
 function getTodayKey() {
-  return new Date().toISOString().slice(0, 10);
+  return formatStamp().slice(0, 10);
 }
 
 function getCurrentExercise() {
@@ -397,13 +419,17 @@ function asNumber(value) {
   return Number.isFinite(Number(value)) ? Number(value) : 0;
 }
 
-function buildRecommendation(exerciseName) {
-  const prev = state.data.logs.filter((entry) => entry.exercise === exerciseName && entry.day === state.selectedDay);
+function getExerciseGuidance(day, exerciseName, throughDate = "") {
+  const prev = state.data.logs.filter((entry) => (
+    entry.exercise === exerciseName
+    && entry.day === day
+    && (!throughDate || entry.date <= throughDate)
+  ));
   if (!prev.length) {
-    return { label: "New exercise", value: 0 };
+    return { label: "Start tracking", value: 0, signal: "New" };
   }
 
-  const exerciseDef = PROGRAM[state.selectedDay].find(([name]) => name === exerciseName);
+  const exerciseDef = PROGRAM[day].find(([name]) => name === exerciseName);
   const minTarget = exerciseDef ? Number(exerciseDef[2]) : 0;
   const maxTarget = exerciseDef ? Number(exerciseDef[3]) : 0;
   const increment = exerciseDef ? Number(exerciseDef[4]) : 0;
@@ -414,25 +440,33 @@ function buildRecommendation(exerciseName) {
   const repsAtOrAboveMax = recent.filter((entry) => Number(entry.reps) >= maxTarget && Number(entry.rir) <= 2).length;
   const repsBelowMin = recent.filter((entry) => Number(entry.reps) < minTarget).length;
   const distinctDates = new Set(recent.map((entry) => entry.date)).size;
+  const hardSets = recent.filter((entry) => Number(entry.rir) <= 1).length;
 
   if (recent.length >= 2 && distinctDates >= 2 && repsAtOrAboveMax >= 2 && successfulSets >= recent.length - 1) {
     return {
       label: "Top of range reached across recent work",
       value: Number((lastWeight + increment).toFixed(2)),
+      signal: "Increase weight",
     };
   }
 
-  if (recent.length >= 3 && repsBelowMin >= 2) {
+  if (recent.length >= 2 && repsBelowMin >= 2 || recent.length >= 3 && hardSets >= recent.length - 1 && repsBelowMin >= 1) {
     return {
-      label: "Stay at current load",
+      label: "Reduce load or add recovery before progressing",
       value: Number(lastWeight.toFixed(2)),
+      signal: "High fatigue",
     };
   }
 
   return {
     label: "Hold load",
     value: Number(lastWeight.toFixed(2)),
+    signal: "Hold load",
   };
+}
+
+function buildRecommendation(exerciseName) {
+  return getExerciseGuidance(state.selectedDay, exerciseName);
 }
 
 function renderDaySelector() {
@@ -489,6 +523,9 @@ function renderRoutinePage() {
     const recommendation = buildRecommendation(exerciseName);
     const suggestedWeight = recommendation.value || Number(previous?.weight || 0);
     const suggestedReps = getExerciseTargetReps(exercise).exact;
+    const nextSessionNote = suggestedWeight
+      ? `<span class="exercise-next-session">Next session: ${suggestedWeight} kg x ${suggestedReps} reps</span>`
+      : "";
     const exerciseKey = `${state.selectedDay}:${exerciseName}`;
     const restTimerActive = state.restActive && state.restExerciseKey === exerciseKey;
     const restTimerValue = restTimerActive ? state.restSeconds : getRestDuration(exerciseKey);
@@ -549,6 +586,7 @@ function renderRoutinePage() {
           <span class="routine-expander" aria-hidden="true"></span>
           <span class="exercise-summary-text">
             <strong>${exerciseName}</strong>
+            ${nextSessionNote}
           </span>
           <label class="exercise-complete" title="Mark exercise complete">
             <input type="checkbox" data-complete-exercise="${exerciseKey}" ${completed ? "checked" : ""} />
@@ -729,6 +767,7 @@ function setSetCompletion(exerciseKey, setNumber, completed, shouldRender = true
     const setKey = `${exerciseKey}:${setNumber}`;
     state.data.logs.push({
       date: getTodayKey(),
+      createdAt: new Date().toISOString(),
       day,
       exercise: exerciseName,
       setNumber,
@@ -736,6 +775,7 @@ function setSetCompletion(exerciseKey, setNumber, completed, shouldRender = true
       reps: state.pendingSetValues[setKey]?.reps ?? getExerciseTargetReps(exercise).exact,
       rir: state.pendingSetValues[setKey]?.rir ?? 2,
     });
+    state.historySelectedDates[day] = getTodayKey();
   } else if (!completed) {
     state.data.logs = state.data.logs.filter((entry) => !(
       entry.date === getTodayKey()
@@ -798,6 +838,155 @@ function getWeeklySummary() {
     avgReps,
     daysLogged,
   };
+}
+
+function getHistoryDateKey(value) {
+  if (!value) return "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  return formatStamp(new Date(value)).slice(0, 10);
+}
+
+function formatHistoryDate(value) {
+  const dateKey = getHistoryDateKey(value);
+  if (!dateKey) return "Unknown date";
+  const date = new Date(`${dateKey}T12:00:00`);
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function getRoutineSessions(day) {
+  const sessions = new Map();
+  state.data.logs
+    .filter((entry) => entry.day === day)
+    .forEach((entry) => {
+      const dateKey = getHistoryDateKey(entry.date);
+      if (!sessions.has(dateKey)) sessions.set(dateKey, { date: dateKey, logs: [], completedSets: 0 });
+      const session = sessions.get(dateKey);
+      session.logs.push(entry);
+      session.completedSets += 1;
+    });
+
+  (state.data.routineHistory || [])
+    .filter((entry) => entry.day === day)
+    .forEach((entry) => {
+      const dateKey = getHistoryDateKey(entry.date);
+      if (!sessions.has(dateKey)) sessions.set(dateKey, { date: dateKey, logs: [], completedSets: 0 });
+      const session = sessions.get(dateKey);
+      session.completedSets = Math.max(session.completedSets, Number(entry.completedSets || 0));
+    });
+
+  return [...sessions.values()].sort((left, right) => right.date.localeCompare(left.date));
+}
+
+function getHistorySessionLimit(day, sessions) {
+  if (state.historySessionLimits[day]) {
+    return Math.min(state.historySessionLimits[day], sessions.length);
+  }
+
+  const weekStart = new Date();
+  weekStart.setDate(weekStart.getDate() - 6);
+  const weekStartKey = formatStamp(weekStart).slice(0, 10);
+  const recentCount = sessions.filter((session) => session.date >= weekStartKey).length;
+  return Math.min(sessions.length, Math.max(recentCount, sessions.length ? 1 : 0));
+}
+
+function renderHistory() {
+  const sections = DAYS.map((day) => {
+    const routine = ROUTINES[day];
+    const sessions = getRoutineSessions(day);
+    const visibleSessionCount = getHistorySessionLimit(day, sessions);
+    const visibleSessions = sessions.slice(0, visibleSessionCount);
+    const hasOlderSessions = visibleSessionCount < sessions.length;
+    const selectedDate = state.historySelectedDates[day] && sessions.some((session) => session.date === state.historySelectedDates[day])
+      ? state.historySelectedDates[day]
+      : sessions[0]?.date || "";
+    const exerciseRows = PROGRAM[day].map((exercise) => {
+      const name = exercise[0];
+      const logs = state.data.logs.filter((entry) => (
+        entry.day === day && entry.exercise === name && entry.date === selectedDate
+      ));
+      const last = logs[logs.length - 1];
+      const guidance = getExerciseGuidance(day, name, selectedDate);
+      const lastResult = last ? `${last.weight} kg x ${last.reps} reps, RIR ${last.rir ?? "-"}` : "No logged sets this session";
+      return `
+        <tr>
+          <td><strong>${name}</strong></td>
+          <td>${last ? formatHistoryDate(last.date) : "-"}</td>
+          <td>${lastResult}</td>
+          <td>
+            <strong class="history-signal signal-${guidance.signal.toLowerCase().replaceAll(" ", "-")}">${guidance.signal}</strong>
+            <span class="history-next-step">${guidance.value ? `${guidance.value} kg next` : guidance.label}</span>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    const sessionRows = sessions.length
+      ? visibleSessions.map((session) => {
+        const volume = session.logs.reduce((sum, entry) => sum + Number(entry.weight || 0) * Number(entry.reps || 0), 0);
+        const exercises = new Set(session.logs.map((entry) => entry.exercise)).size;
+        const selected = session.date === selectedDate ? " selected-history-session" : "";
+        return `<tr class="history-session-row${selected}" data-history-session="${day}" data-history-date="${session.date}" tabindex="0"><td><strong>${formatHistoryDate(session.date)}</strong></td><td>${session.completedSets}</td><td>${exercises}</td><td>${volume.toFixed(1)} kg</td></tr>`;
+      }).join("")
+      : '<tr><td class="empty-state" colspan="4">No sessions recorded yet.</td></tr>';
+
+    return `
+      <details class="history-routine" ${sessions.length ? "open" : ""}>
+        <summary>
+          <span><strong>${routine.name}</strong><small>${routine.focus}</small></span>
+          <span class="history-session-count">${sessions.length} session${sessions.length === 1 ? "" : "s"}</span>
+        </summary>
+        <div class="history-routine-body">
+          <div class="history-block">
+            <div class="history-block-heading">
+              <h3>Session ledger</h3>
+              <span>${sessions.length ? `${formatHistoryDate(selectedDate)} selected` : "No activity"}</span>
+            </div>
+            <div class="history-table-wrap">
+              <table class="history-table session-table">
+                <thead><tr><th>Session date</th><th>Sets</th><th>Exercises</th><th>Volume</th></tr></thead>
+                <tbody>${sessionRows}</tbody>
+              </table>
+            </div>
+            ${hasOlderSessions ? `<button class="history-load-more" type="button" data-history-load="${day}">Load older sessions <span>+${sessions.length - visibleSessionCount}</span></button>` : ""}
+          </div>
+          <div class="history-block">
+              <div class="history-block-heading">
+              <h3>Exercise outlook</h3>
+              <span>${selectedDate ? `Based on ${formatHistoryDate(selectedDate)}` : "Next session"}</span>
+            </div>
+            <div class="history-table-wrap">
+              <table class="history-table history-exercise-table">
+                <thead><tr><th>Exercise</th><th>Last logged</th><th>Last performance</th><th>Decision</th></tr></thead>
+                <tbody>${exerciseRows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+  }).join("");
+
+  els.historyContent.innerHTML = sections;
+  els.historyContent.querySelectorAll("[data-history-session]").forEach((row) => {
+    const selectSession = () => {
+      state.historySelectedDates[row.dataset.historySession] = row.dataset.historyDate;
+      renderHistory();
+    };
+    row.addEventListener("click", selectSession);
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectSession();
+      }
+    });
+  });
+  els.historyContent.querySelectorAll("[data-history-load]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const day = button.dataset.historyLoad;
+      state.historySessionLimits[day] = (state.historySessionLimits[day] || getHistorySessionLimit(day, getRoutineSessions(day))) + 6;
+      renderHistory();
+    });
+  });
 }
 
 function getPRs() {
@@ -1020,6 +1209,7 @@ function renderSession() {
   document.getElementById("logBtn").addEventListener("click", () => {
     const entry = {
       date: getTodayKey(),
+      createdAt: new Date().toISOString(),
       day: state.selectedDay,
       exercise: exercise[0],
       setNumber: state.currentSetNumber,
@@ -1029,6 +1219,7 @@ function renderSession() {
     };
 
     state.data.logs.push(entry);
+    state.historySelectedDates[state.selectedDay] = entry.date;
     saveData();
     state.currentSetNumber += 1;
 
@@ -1194,6 +1385,7 @@ function render() {
   renderWeeklySummary();
   renderPRs();
   renderRecentLog();
+  renderHistory();
   updateBackupStatus();
   renderTabs();
 }
@@ -1203,6 +1395,7 @@ function renderTabs() {
   els.workoutView.classList.toggle("hidden", activeTab !== "workout");
   els.userView.classList.toggle("hidden", activeTab !== "user");
   els.dataView.classList.toggle("hidden", activeTab !== "data");
+  els.historyView.classList.toggle("hidden", activeTab !== "history");
 
   els.tabButtons.forEach((button) => {
     const isActive = button.dataset.tab === activeTab;
@@ -1269,8 +1462,8 @@ els.resetBtn.addEventListener("click", () => {
   render();
 });
 
-els.saveNowBtn.addEventListener("click", () => {
-  saveActiveFile();
+els.saveNowBtn.addEventListener("click", async () => {
+  await saveActiveFile();
   render();
   alert("Active file saved.");
 });

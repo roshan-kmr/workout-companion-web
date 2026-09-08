@@ -1,0 +1,79 @@
+{
+  "userName": "Test User",
+  "createdAt": "2026-09-08T20:00:00.000Z",
+  "logs": [
+    { "date": "2026-08-28", "createdAt": "2026-08-28T18:00:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 1, "weight": 50, "reps": 8, "rir": 2 },
+    { "date": "2026-08-28", "createdAt": "2026-08-28T18:02:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 2, "weight": 50, "reps": 8, "rir": 2 },
+    { "date": "2026-08-28", "createdAt": "2026-08-28T18:10:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 1, "weight": 45, "reps": 10, "rir": 2 },
+    { "date": "2026-08-28", "createdAt": "2026-08-28T18:12:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 2, "weight": 45, "reps": 10, "rir": 2 },
+
+    { "date": "2026-08-29", "createdAt": "2026-08-29T18:00:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 1, "weight": 40, "reps": 8, "rir": 2 },
+    { "date": "2026-08-29", "createdAt": "2026-08-29T18:02:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 2, "weight": 40, "reps": 8, "rir": 2 },
+    { "date": "2026-08-29", "createdAt": "2026-08-29T18:10:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 1, "weight": 20, "reps": 10, "rir": 2 },
+    { "date": "2026-08-29", "createdAt": "2026-08-29T18:12:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 2, "weight": 20, "reps": 10, "rir": 2 },
+
+    { "date": "2026-08-30", "createdAt": "2026-08-30T18:00:00.000Z", "day": "Tuesday", "exercise": "Pull-ups / Assisted Pull-ups", "setNumber": 1, "weight": 15, "reps": 8, "rir": 2 },
+    { "date": "2026-08-30", "createdAt": "2026-08-30T18:02:00.000Z", "day": "Tuesday", "exercise": "Pull-ups / Assisted Pull-ups", "setNumber": 2, "weight": 15, "reps": 8, "rir": 2 },
+    { "date": "2026-08-30", "createdAt": "2026-08-30T18:10:00.000Z", "day": "Tuesday", "exercise": "Chest-supported Row", "setNumber": 1, "weight": 45, "reps": 10, "rir": 2 },
+    { "date": "2026-08-30", "createdAt": "2026-08-30T18:12:00.000Z", "day": "Tuesday", "exercise": "Chest-supported Row", "setNumber": 2, "weight": 45, "reps": 10, "rir": 2 },
+
+    { "date": "2026-08-31", "createdAt": "2026-08-31T18:00:00.000Z", "day": "Wednesday", "exercise": "HIIT Bike / Air Bike", "setNumber": 1, "weight": 0, "reps": 30, "rir": 2 },
+    { "date": "2026-08-31", "createdAt": "2026-08-31T18:02:00.000Z", "day": "Wednesday", "exercise": "HIIT Bike / Air Bike", "setNumber": 2, "weight": 0, "reps": 30, "rir": 2 },
+    { "date": "2026-08-31", "createdAt": "2026-08-31T18:10:00.000Z", "day": "Wednesday", "exercise": "Cable Crunch", "setNumber": 1, "weight": 25, "reps": 12, "rir": 2 },
+    { "date": "2026-08-31", "createdAt": "2026-08-31T18:12:00.000Z", "day": "Wednesday", "exercise": "Cable Crunch", "setNumber": 2, "weight": 25, "reps": 12, "rir": 2 },
+
+    { "date": "2026-09-01", "createdAt": "2026-09-01T18:00:00.000Z", "day": "Thursday", "exercise": "Back Squat / Hack Squat", "setNumber": 1, "weight": 70, "reps": 8, "rir": 2 },
+    { "date": "2026-09-01", "createdAt": "2026-09-01T18:02:00.000Z", "day": "Thursday", "exercise": "Back Squat / Hack Squat", "setNumber": 2, "weight": 70, "reps": 8, "rir": 2 },
+    { "date": "2026-09-01", "createdAt": "2026-09-01T18:10:00.000Z", "day": "Thursday", "exercise": "Romanian Deadlift", "setNumber": 1, "weight": 60, "reps": 8, "rir": 2 },
+    { "date": "2026-09-01", "createdAt": "2026-09-01T18:12:00.000Z", "day": "Thursday", "exercise": "Romanian Deadlift", "setNumber": 2, "weight": 60, "reps": 8, "rir": 2 },
+
+    { "date": "2026-09-02", "createdAt": "2026-09-02T18:00:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 1, "weight": 52.5, "reps": 9, "rir": 1 },
+    { "date": "2026-09-02", "createdAt": "2026-09-02T18:02:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 2, "weight": 52.5, "reps": 9, "rir": 1 },
+    { "date": "2026-09-02", "createdAt": "2026-09-02T18:10:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 1, "weight": 47.5, "reps": 11, "rir": 1 },
+    { "date": "2026-09-02", "createdAt": "2026-09-02T18:12:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 2, "weight": 47.5, "reps": 11, "rir": 1 },
+
+    { "date": "2026-09-03", "createdAt": "2026-09-03T18:00:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 1, "weight": 42.5, "reps": 8, "rir": 2 },
+    { "date": "2026-09-03", "createdAt": "2026-09-03T18:02:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 2, "weight": 42.5, "reps": 8, "rir": 2 },
+    { "date": "2026-09-03", "createdAt": "2026-09-03T18:10:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 1, "weight": 22, "reps": 10, "rir": 2 },
+    { "date": "2026-09-03", "createdAt": "2026-09-03T18:12:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 2, "weight": 22, "reps": 10, "rir": 2 },
+
+    { "date": "2026-09-04", "createdAt": "2026-09-04T18:00:00.000Z", "day": "Tuesday", "exercise": "Pull-ups / Assisted Pull-ups", "setNumber": 1, "weight": 17.5, "reps": 9, "rir": 1 },
+    { "date": "2026-09-04", "createdAt": "2026-09-04T18:02:00.000Z", "day": "Tuesday", "exercise": "Pull-ups / Assisted Pull-ups", "setNumber": 2, "weight": 17.5, "reps": 9, "rir": 1 },
+    { "date": "2026-09-04", "createdAt": "2026-09-04T18:10:00.000Z", "day": "Tuesday", "exercise": "Chest-supported Row", "setNumber": 1, "weight": 50, "reps": 12, "rir": 1 },
+    { "date": "2026-09-04", "createdAt": "2026-09-04T18:12:00.000Z", "day": "Tuesday", "exercise": "Chest-supported Row", "setNumber": 2, "weight": 50, "reps": 12, "rir": 1 },
+
+    { "date": "2026-09-05", "createdAt": "2026-09-05T18:00:00.000Z", "day": "Wednesday", "exercise": "HIIT Bike / Air Bike", "setNumber": 1, "weight": 0, "reps": 30, "rir": 1 },
+    { "date": "2026-09-05", "createdAt": "2026-09-05T18:02:00.000Z", "day": "Wednesday", "exercise": "HIIT Bike / Air Bike", "setNumber": 2, "weight": 0, "reps": 30, "rir": 1 },
+    { "date": "2026-09-05", "createdAt": "2026-09-05T18:10:00.000Z", "day": "Wednesday", "exercise": "Cable Crunch", "setNumber": 1, "weight": 27.5, "reps": 13, "rir": 1 },
+    { "date": "2026-09-05", "createdAt": "2026-09-05T18:12:00.000Z", "day": "Wednesday", "exercise": "Cable Crunch", "setNumber": 2, "weight": 27.5, "reps": 13, "rir": 1 },
+
+    { "date": "2026-09-06", "createdAt": "2026-09-06T18:00:00.000Z", "day": "Thursday", "exercise": "Back Squat / Hack Squat", "setNumber": 1, "weight": 75, "reps": 9, "rir": 1 },
+    { "date": "2026-09-06", "createdAt": "2026-09-06T18:02:00.000Z", "day": "Thursday", "exercise": "Back Squat / Hack Squat", "setNumber": 2, "weight": 75, "reps": 9, "rir": 1 },
+    { "date": "2026-09-06", "createdAt": "2026-09-06T18:10:00.000Z", "day": "Thursday", "exercise": "Romanian Deadlift", "setNumber": 1, "weight": 65, "reps": 9, "rir": 1 },
+    { "date": "2026-09-06", "createdAt": "2026-09-06T18:12:00.000Z", "day": "Thursday", "exercise": "Romanian Deadlift", "setNumber": 2, "weight": 65, "reps": 9, "rir": 1 },
+
+    { "date": "2026-09-07", "createdAt": "2026-09-07T18:00:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 1, "weight": 55, "reps": 10, "rir": 1 },
+    { "date": "2026-09-07", "createdAt": "2026-09-07T18:02:00.000Z", "day": "Friday", "exercise": "Incline Bench Press", "setNumber": 2, "weight": 55, "reps": 10, "rir": 1 },
+    { "date": "2026-09-07", "createdAt": "2026-09-07T18:10:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 1, "weight": 50, "reps": 12, "rir": 1 },
+    { "date": "2026-09-07", "createdAt": "2026-09-07T18:12:00.000Z", "day": "Friday", "exercise": "Chest-supported Row", "setNumber": 2, "weight": 50, "reps": 12, "rir": 1 },
+
+    { "date": "2026-09-08", "createdAt": "2026-09-08T18:00:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 1, "weight": 45, "reps": 9, "rir": 1 },
+    { "date": "2026-09-08", "createdAt": "2026-09-08T18:02:00.000Z", "day": "Monday", "exercise": "Barbell Bench Press", "setNumber": 2, "weight": 45, "reps": 9, "rir": 1 },
+    { "date": "2026-09-08", "createdAt": "2026-09-08T18:10:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 1, "weight": 24, "reps": 11, "rir": 1 },
+    { "date": "2026-09-08", "createdAt": "2026-09-08T18:12:00.000Z", "day": "Monday", "exercise": "Incline Dumbbell Press", "setNumber": 2, "weight": 24, "reps": 11, "rir": 1 }
+  ],
+  "routineHistory": [
+    { "routine": "Full Body", "day": "Friday", "date": "2026-08-28T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Push Strength", "day": "Monday", "date": "2026-08-29T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Pull Strength", "day": "Tuesday", "date": "2026-08-30T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Core & Conditioning", "day": "Wednesday", "date": "2026-08-31T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Leg Strength", "day": "Thursday", "date": "2026-09-01T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Full Body", "day": "Friday", "date": "2026-09-02T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Push Strength", "day": "Monday", "date": "2026-09-03T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Pull Strength", "day": "Tuesday", "date": "2026-09-04T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Core & Conditioning", "day": "Wednesday", "date": "2026-09-05T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Leg Strength", "day": "Thursday", "date": "2026-09-06T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Full Body", "day": "Friday", "date": "2026-09-07T18:30:00.000Z", "userName": "Test User", "completedSets": 4 },
+    { "routine": "Push Strength", "day": "Monday", "date": "2026-09-08T18:30:00.000Z", "userName": "Test User", "completedSets": 4 }
+  ]
+}

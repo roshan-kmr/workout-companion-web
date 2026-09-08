@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="icon.svg" />
     <link rel="apple-touch-icon" href="icon.svg" />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=13" />
   </head>
   <body>
     <div class="app-shell">
@@ -28,6 +28,7 @@
           <button class="tab-toggle active" data-tab="workout">Active workout</button>
           <button class="tab-toggle" data-tab="user">User</button>
           <button class="tab-toggle" data-tab="data">Data & backup</button>
+          <button class="tab-toggle" data-tab="history">History</button>
         </div>
       </header>
 
@@ -125,10 +126,20 @@
             </div>
           </div>
         </section>
+
+        <section id="historyView" class="tab-view hidden">
+          <div class="panel side-panel history-panel">
+            <div class="panel-head">
+              <h2>Training history</h2>
+              <p class="muted-copy">Recent work, next actions, and recovery signals by routine.</p>
+            </div>
+            <div id="historyContent" class="history-content"></div>
+          </div>
+        </section>
       </main>
     </div>
 
-    <script src="app.js?v=13"></script>
+    <script src="app.js?v=17"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
