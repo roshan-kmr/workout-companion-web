@@ -277,18 +277,27 @@ async function openSelectedFile(file) {
   const reader = new FileReader();
   reader.onload = async (event) => {
     try {
-      const parsed = JSON.parse(String(event.target.result || "{}"));
+      const rawText = String(event.target.result || "").replace(/^\uFEFF/, "").trim();
+      const parsed = JSON.parse(rawText || "{}");
       if (!parsed || !Array.isArray(parsed.logs)) {
         alert("This file does not contain valid workout data.");
         return;
       }
-      state.data = parsed;
+      state.data = {
+        ...parsed,
+        userName: (parsed.userName && String(parsed.userName).trim()) || getUserNameValue(),
+        logs: parsed.logs,
+        routineHistory: Array.isArray(parsed.routineHistory) ? parsed.routineHistory : [],
+      };
       saveData();
       render();
       alert("Workout data loaded successfully.");
     } catch (error) {
-      alert("Could not read this backup file.");
+      alert(`Could not read this backup file: ${error.message || "invalid JSON"}`);
     }
+  };
+  reader.onerror = () => {
+    alert("Could not read this backup file from the browser.");
   };
   reader.readAsText(file);
 }
