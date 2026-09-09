@@ -477,6 +477,8 @@ button {
   width: 100%;
   min-width: 520px;
   border-collapse: collapse;
+  background: rgba(15, 23, 42, 0.42);
+  color: var(--text);
   text-align: left;
 }
 
@@ -499,6 +501,14 @@ button {
 
 .history-table tbody tr:last-child td {
   border-bottom: 0;
+}
+
+.history-table tbody tr:nth-child(odd) {
+  background: rgba(30, 41, 59, 0.42);
+}
+
+.history-table tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.72);
 }
 
 .history-table td {

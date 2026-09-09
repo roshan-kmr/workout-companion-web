@@ -144,7 +144,16 @@ function loadData() {
       ...parsed,
       userName: (parsed.userName && parsed.userName.trim()) || getUserNameValue(),
       logs: Array.isArray(parsed.logs) ? parsed.logs : [],
-      routineHistory: Array.isArray(parsed.routineHistory) ? parsed.routineHistory : [],
+      routineHistory: Array.isArray(parsed.routineHistory)
+        ? parsed.routineHistory.map((entry) => ({
+          ...entry,
+          dateKey: entry.dateKey || (
+            String(entry.date || "").endsWith("T20:00:00.000Z")
+              ? String(entry.date).slice(0, 10)
+              : getHistoryDateKey(entry.date)
+          ),
+        }))
+        : [],
     };
   } catch {
     return { userName: getUserNameValue(), logs: [] };
@@ -922,6 +931,7 @@ function endRoutine() {
     routine: ROUTINES[state.selectedDay].name,
     day: state.selectedDay,
     date: new Date().toISOString(),
+    dateKey: getTodayKey(),
     userName,
     completedSets,
   });
@@ -984,7 +994,7 @@ function getRoutineSessions(day) {
   (state.data.routineHistory || [])
     .filter((entry) => entry.day === day)
     .forEach((entry) => {
-      const dateKey = getHistoryDateKey(entry.date);
+      const dateKey = entry.dateKey || getHistoryDateKey(entry.date);
       if (!sessions.has(dateKey)) sessions.set(dateKey, { date: dateKey, logs: [], completedSets: 0 });
       const session = sessions.get(dateKey);
       session.completedSets = Math.max(session.completedSets, Number(entry.completedSets || 0));
@@ -1015,7 +1025,9 @@ function renderHistory() {
     const selectedDate = state.historySelectedDates[day] && sessions.some((session) => session.date === state.historySelectedDates[day])
       ? state.historySelectedDates[day]
       : sessions[0]?.date || "";
-    const exerciseRows = PROGRAM[day].map((exercise) => {
+    const exerciseRows = PROGRAM[day].filter((exercise) => state.data.logs.some((entry) => (
+      entry.day === day && entry.exercise === exercise[0] && entry.date === selectedDate
+    ))).map((exercise) => {
       const name = exercise[0];
       const logs = state.data.logs.filter((entry) => (
         entry.day === day && entry.exercise === name && entry.date === selectedDate
@@ -1035,7 +1047,7 @@ function renderHistory() {
           </td>
         </tr>
       `;
-    }).join("");
+    }).join("") || '<tr><td class="empty-state" colspan="4">No exercises logged for this session.</td></tr>';
 
     const sessionRows = sessions.length
       ? visibleSessions.map((session) => {
